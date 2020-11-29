@@ -16,11 +16,11 @@ COLOR_GREEN = (0, 255, 0)
 # GOOD LUCK AND START SHOOTING!
 
 class Block:
-    count = 10
 
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.count = 10
 
     def draw(self, window):
         pygame.draw.rect(window, COLOR_GREEN, (self.x, self.y, 90, 40))
@@ -42,12 +42,12 @@ class Laser:
 
 
 class Alien:
-    lasers = []
-    alien_direction = 1
 
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.lasers = []
+        self.alien_direction = 1
 
     def draw(self, window):
         pygame.draw.rect(window, COLOR_GREEN, (self.x, self.y, 40, 40))
@@ -62,13 +62,13 @@ class Alien:
 
 
 class Player:
-    playerspeed = 4
-    cooldown = 30
-    lasers = []
 
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.lasers = []
+        self.playerspeed = 4
+        self.cooldown = 30
         self.lasers = []
 
     def draw(self, window):
@@ -183,13 +183,15 @@ def main():
                 for j in aliens:
                     j.alien_direction *= -1
             for k in alien.lasers:
-                k.move(-0.5)
-                for l in blocks:
-                    if l.x <= k.x <= l.x + 90 and l.y <= k.y <= l.y + 35:
+                k.move(-5)
+                if k.y >= 600:
+                    alien.lasers.remove(k)
+                for block in blocks:
+                    if block.x <= k.x <= block.x + 90 and block.y <= k.y <= block.y + 35:
                         alien.lasers.remove(k)
-                        l.count -= 1
-                        if l.count == 0:
-                            blocks.remove(l)
+                        block.count -= 1
+                        if block.count == 0:
+                            blocks.remove(block)
                 if player.x <= k.x <= player.x + 50 and player.y <= k.y <= player.y + 20:
                     for o in players:
                         players.remove(o)
