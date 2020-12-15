@@ -25,4 +25,4 @@ with open("database", "r") as file1:
 	
 with open("sorted", 'w') as file2:
 	for i in sortedd2:
-file2.write(i + '\n')
+		file2.write(i + '\n')
